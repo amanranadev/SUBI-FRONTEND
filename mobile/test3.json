@@ -1,0 +1,557 @@
+{
+  "pendDate": "11-05-2025",
+  "closeDate": "12-24-2025",
+  "address": "123 Downtown St",
+  "county": "Chelan",
+  "cityState": "YourCity, WA",
+  "parcelNumber": "0000000000111112",
+  "amount": 900000,
+  "listingPrice": null,
+  "earnestMoney": 9000,
+  "titleCo": "Pioneer Title",
+  "closingAgent": "Pioneer Title & Escrow",
+  "closingAgentCompany": "Pioneer Title & Escrow",
+  "escrowOfficer": "Courtney Mitchell",
+  "earnestMoneyHeldBy": "Closing Agent",
+  "agentName": "Kristen Thompson",
+  "fb": null,
+  "firmPhone": "(888) 317-5197",
+  "brokerPhone": "(425) 314-7688",
+  "brokerMintEmail": "k.n.thompson86@gmail.com",
+  "firmDocumentEmail": "wa.contracts@exprealty.com",
+  "officeMlsNumber": "4484",
+  "buyerBrokerMlsLag": "103015",
+  "itemsThatStay": "stove/range, refrigerator, washer, dryer, dishwasher, microwave",
+  "buyersandsellers": [
+    {
+      "buyers": [
+        {
+          "firstName": "Jane",
+          "lastName": "Austin, Edgar Allen Poe",
+          "email": null,
+          "phone": null,
+          "representing": false
+        }
+      ],
+      "sellers": [
+        {
+          "firstName": "Mister",
+          "lastName": "Darcy, Elisabeth Darcy",
+          "email": null,
+          "phone": null,
+          "representing": false
+        }
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "form_number": "21",
+      "form_name": "Form 21 - Purchase and Sale Agreement",
+      "confidence": 0.9,
+      "tasks": [
+        {
+          "deadline_key": "form21_earnest_money_delivery",
+          "task_key": "earnest_money_delivery",
+          "task_name": "§7 Earnest Money Delivery",
+          "task_name_short": "Earnest Money Delivery",
+          "clause_type": "deadline",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 3,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-10-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 3,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        },
+        {
+          "deadline_key": "form21_information_verification",
+          "task_key": "information_verification",
+          "task_name": "§16 Information Verification Period",
+          "task_name_short": "Information Verification",
+          "clause_type": "contingency",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 5,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-13-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 5,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        }
+      ]
+    },
+    {
+      "form_number": "22A",
+      "form_name": "Form 22A - Financing Addendum",
+      "confidence": 0.9,
+      "tasks": [
+        {
+          "deadline_key": "form22A_loan_application",
+          "task_key": "loan_application",
+          "task_name": "§1(a) Loan Application",
+          "task_name_short": "Loan Application",
+          "clause_type": "deadline",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 5,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-13-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 5,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        },
+        {
+          "deadline_key": "form22A_seller_notice_to_perform",
+          "task_key": "seller_notice_to_perform",
+          "task_name": "§1(c) Seller Notice to Perform",
+          "task_name_short": "Seller Notice to Perform",
+          "clause_type": "deadline",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 21,
+            "unit": "calendar_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-26-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 21,
+              "unit": "calendar_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "seller"
+        }
+      ]
+    },
+    {
+      "form_number": "22D",
+      "form_name": "Form 22D - Optional Clauses Addendum",
+      "confidence": 0.9,
+      "tasks": [
+        {
+          "deadline_key": "form22D_hoa_seller_delivery",
+          "task_key": "hoa_seller_delivery",
+          "task_name": "§6 HOA Document Delivery",
+          "task_name_short": "HOA Doc Delivery",
+          "clause_type": "deadline",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 10,
+            "unit": "calendar_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-17-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 10,
+              "unit": "calendar_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "seller"
+        },
+        {
+          "deadline_key": "form22D_hoa_buyer_review",
+          "task_key": "hoa_buyer_review",
+          "task_name": "§6 HOA Buyer Review",
+          "task_name_short": "HOA Review",
+          "clause_type": "contingency",
+          "trigger": "receipt_of_hoa_docs",
+          "offset": {
+            "n": 5,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": false,
+            "normalized": null,
+            "trigger": "receipt_of_hoa_docs",
+            "offset": {
+              "n": 5,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        }
+      ]
+    },
+    {
+      "form_number": "22J",
+      "form_name": "Form 22J - Lead-Based Paint Addendum",
+      "confidence": 0.9,
+      "tasks": []
+    },
+    {
+      "form_number": "22K",
+      "form_name": "Form 22K - Utilities Addendum",
+      "confidence": 0.9,
+      "tasks": []
+    },
+    {
+      "form_number": "22T",
+      "form_name": "Form 22T - Title Contingency Addendum",
+      "confidence": 0.9,
+      "tasks": [
+        {
+          "deadline_key": "form22T_title_buyer_review",
+          "task_key": "title_buyer_review",
+          "task_name": "§1 Title Buyer Review",
+          "task_name_short": "Title Review",
+          "clause_type": "contingency",
+          "trigger": "receipt_of_title_commitment",
+          "offset": {
+            "n": 5,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": false,
+            "normalized": null,
+            "trigger": "receipt_of_title_commitment",
+            "offset": {
+              "n": 5,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        }
+      ]
+    },
+    {
+      "form_number": "22VV",
+      "form_name": "Form 22VV - Homeowner's Insurance Addendum",
+      "confidence": 0.9,
+      "tasks": [
+        {
+          "deadline_key": "form22VV_insurance_application",
+          "task_key": "insurance_application",
+          "task_name": "Insurance Application",
+          "task_name_short": "Insurance Application",
+          "clause_type": "deadline",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 5,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-13-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 5,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        },
+        {
+          "deadline_key": "form22VV_insurance_waiver",
+          "task_key": "insurance_waiver",
+          "task_name": "Insurance Contingency Waiver",
+          "task_name_short": "Insurance Waiver",
+          "clause_type": "contingency",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 15,
+            "unit": "calendar_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-20-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 15,
+              "unit": "calendar_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        }
+      ]
+    },
+    {
+      "form_number": "35",
+      "form_name": "Form 35 - Inspection Addendum",
+      "confidence": 0.9,
+      "tasks": [
+        {
+          "deadline_key": "form35_initial_inspection",
+          "task_key": "initial_inspection",
+          "task_name": "§1 Initial Inspection Period",
+          "task_name_short": "Inspection Period",
+          "clause_type": "contingency",
+          "trigger": "mutual_acceptance",
+          "offset": {
+            "n": 4,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": true,
+            "normalized": "11-12-2025",
+            "trigger": "mutual_acceptance",
+            "offset": {
+              "n": 4,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        },
+        {
+          "deadline_key": "form35_seller_response_to_repairs",
+          "task_key": "seller_response_to_repairs",
+          "task_name": "§2 Seller Response to Repairs",
+          "task_name_short": "Seller Repair Response",
+          "clause_type": "deadline",
+          "trigger": "buyer_repair_request",
+          "offset": {
+            "n": 3,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": false,
+            "normalized": null,
+            "trigger": "buyer_repair_request",
+            "offset": {
+              "n": 3,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "seller"
+        },
+        {
+          "deadline_key": "form35_buyer_reply_to_seller_response",
+          "task_key": "buyer_reply_to_seller_response",
+          "task_name": "§3 Buyer Reply to Seller Response",
+          "task_name_short": "Buyer Reply",
+          "clause_type": "deadline",
+          "trigger": "seller_response_to_repairs",
+          "offset": {
+            "n": 3,
+            "unit": "business_days",
+            "direction": "after"
+          },
+          "offset_rule": "A",
+          "computed": {
+            "resolved": false,
+            "normalized": null,
+            "trigger": "seller_response_to_repairs",
+            "offset": {
+              "n": 3,
+              "unit": "business_days",
+              "direction": "after"
+            }
+          },
+          "responsible": "buyer"
+        }
+      ]
+    }
+  ],
+  "dateClauses": [
+    {
+      "id": "dc_closing_date",
+      "deadline_key": "closing_date",
+      "key": "closeDate",
+      "relatedFieldKey": "closeDate",
+      "relatedFieldLabel": "Closing Date",
+      "raw_text": null,
+      "normalized": "12-24-2025",
+      "conditional": null,
+      "sourceForm": "Form 21",
+      "sourceFormCode": "21",
+      "relatedField": "closeDate",
+      "confidence": 1
+    },
+    {
+      "id": "dc_possession_date",
+      "deadline_key": "possession_date",
+      "key": "possessionDate",
+      "relatedFieldKey": "possessionDate",
+      "relatedFieldLabel": "Possession Date",
+      "raw_text": null,
+      "normalized": "12-24-2025",
+      "conditional": null,
+      "sourceForm": "Form 21",
+      "sourceFormCode": "21",
+      "relatedField": "possessionDate",
+      "confidence": 0.85
+    },
+    {
+      "id": "dc_mutual_acceptance",
+      "deadline_key": "mutual_acceptance",
+      "key": "pendDate",
+      "relatedFieldKey": "pendDate",
+      "relatedFieldLabel": "Mutual Acceptance Date",
+      "raw_text": null,
+      "normalized": "11-05-2025",
+      "conditional": null,
+      "sourceForm": "Form 21",
+      "sourceFormCode": "21",
+      "relatedField": "pendDate",
+      "confidence": 1
+    }
+  ],
+  "conflicts": [],
+  "notes": ["19 deadline(s) pending trigger resolution"],
+  "metadata": {
+    "confidence_scores": {
+      "amount": {
+        "value": 900000,
+        "confidence": 1,
+        "reason": null,
+        "evidence": []
+      },
+      "pendDate": {
+        "value": "11-05-2025",
+        "confidence": 1,
+        "reason": null,
+        "evidence": []
+      },
+      "closeDate": {
+        "value": "12-24-2025",
+        "confidence": 1,
+        "reason": null,
+        "evidence": []
+      },
+      "address": {
+        "value": "123 Downtown St",
+        "confidence": 1,
+        "reason": null,
+        "evidence": []
+      },
+      "earnestMoney": {
+        "value": 9000,
+        "confidence": 0.9,
+        "reason": null,
+        "evidence": []
+      }
+    },
+    "audit_trail": [
+      {
+        "timestamp": "2026-02-03T16:10:11.131813Z",
+        "action": "document_processed",
+        "details": {
+          "method": "gemini_vision",
+          "pages": 18
+        }
+      }
+    ],
+    "extracted_facts": [
+      {
+        "form_number": "21",
+        "form_code": "21",
+        "field_key": "amount",
+        "deadline_key": null,
+        "field_label": "Amount",
+        "value": 900000,
+        "normalized": 900000,
+        "source": "primary",
+        "confidence": 1,
+        "page": 1,
+        "raw_text_span": null,
+        "evidence": [],
+        "adjudication_reason": null
+      },
+      {
+        "form_number": "21",
+        "form_code": "21",
+        "field_key": "pendDate",
+        "deadline_key": null,
+        "field_label": "Penddate",
+        "value": "11-05-2025",
+        "normalized": "11-05-2025",
+        "source": "primary",
+        "confidence": 1,
+        "page": 1,
+        "raw_text_span": null,
+        "evidence": [],
+        "adjudication_reason": null
+      },
+      {
+        "form_number": "21",
+        "form_code": "21",
+        "field_key": "closeDate",
+        "deadline_key": null,
+        "field_label": "Closedate",
+        "value": "12-24-2025",
+        "normalized": "12-24-2025",
+        "source": "primary",
+        "confidence": 1,
+        "page": 1,
+        "raw_text_span": null,
+        "evidence": [],
+        "adjudication_reason": null
+      },
+      {
+        "form_number": "21",
+        "form_code": "21",
+        "field_key": "address",
+        "deadline_key": null,
+        "field_label": "Address",
+        "value": "123 Downtown St",
+        "normalized": "123 Downtown St",
+        "source": "primary",
+        "confidence": 1,
+        "page": 1,
+        "raw_text_span": null,
+        "evidence": [],
+        "adjudication_reason": null
+      }
+    ],
+    "processing_method": "third_party_api",
+    "scanned": true
+  }
+}

@@ -1,0 +1,275 @@
+@import "@rollout/link-react/style.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 30 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 30 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 55%;
+    --radius: 2.5rem;
+    --sidebar-background: 0 0% 97%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 30 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 100% 96%;
+    --sidebar-accent-foreground: 30 100% 40%;
+    --sidebar-border: 0 0% 92%;
+    --sidebar-ring: 0 0% 55%;
+    --progress: 142 76% 45%;
+    --sb: 30 100% 50%;
+    --warm-50: 32 24% 95%;
+    --warm-100: 33 100% 91%;
+    --warm-200: 33 51% 90%;
+    --warm-500: 31 100% 56%;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 30 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 30 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 65%;
+    --progress: 142 76% 45%;
+    --sidebar-ring: 0 0% 65%;
+    --sb: 30 100% 50%;
+    --warm-50: 32 12% 24%;
+    --warm-100: 33 47% 28%;
+    --warm-200: 33 21% 35%;
+    --warm-500: 31 100% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border tracking-tighter;
+  }
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  body {
+    @apply bg-background text-foreground antialiased overflow-hidden;
+  }
+}
+
+/* Softer global shadows */
+.shadow-default {
+  box-shadow:
+    0 24px 48px -24px rgba(0, 0, 0, 0.22),
+    0 8px 16px -10px rgba(0, 0, 0, 0.12);
+}
+
+.sidebar-shadow {
+  position: relative;
+}
+
+.sidebar-shadow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow:
+    150px 0 300px -60px rgba(0, 0, 0, 0.25),
+    50px 0 100px -30px rgba(0, 0, 0, 0.1);
+}
+
+.heavy-shadow {
+  box-shadow:
+    0 150px 300px -50px rgba(0, 0, 0, 0.65),
+    0 50px 100px -25px rgba(0, 0, 0, 0.3);
+}
+
+.medium-drop-shadow {
+  box-shadow:
+    0 28px 56px -34px rgba(0, 0, 0, 0.45),
+    0 10px 20px -14px rgba(0, 0, 0, 0.22);
+}
+
+/* Bouncy Sidebar Animation */
+[data-sidebar="sidebar"] {
+  transition: width 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6) !important;
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-3xl border border-white/40 dark:bg-white/5 dark:border-white/10;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.message-in {
+  animation: message-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-12deg);
+  }
+  40% {
+    transform: rotate(9deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(6deg);
+  }
+}
+
+.animate-wave {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: wave 1.8s ease-in-out infinite;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Chat markdown styles */
+.chat-markdown p {
+  margin: 0.25rem 0;
+}
+.chat-markdown p:first-child {
+  margin-top: 0;
+}
+.chat-markdown p:last-child {
+  margin-bottom: 0;
+}
+.chat-markdown ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.chat-markdown li {
+  margin: 0.125rem 0;
+}
+.chat-markdown strong {
+  font-weight: 600;
+}
+.chat-markdown code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: ui-monospace, monospace;
+}
+.chat-markdown a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+.chat-markdown a:hover {
+  text-decoration: none;
+}
+
+/* Subtle app scrollbar */
+.subtle-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 23, 42, 0.18) transparent;
+}
+
+.subtle-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.subtle-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.subtle-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.14),
+    rgba(15, 23, 42, 0.24)
+  );
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.subtle-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.2),
+    rgba(15, 23, 42, 0.3)
+  );
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.subtle-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* react-day-picker — single-date calendars (custom classNames, not .rdp-day) */
+[data-subi-calendar]:not([data-range-picker]) td button {
+  border-radius: 0.5rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease;
+}
+[data-subi-calendar]:not([data-range-picker]) td button:hover:not(:disabled) {
+  background-color: hsl(var(--accent) / 0.7) !important;
+}
+[data-subi-calendar]:not([data-range-picker]) td button:disabled {
+  cursor: default !important;
+  opacity: 0.5 !important;
+}

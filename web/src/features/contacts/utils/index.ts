@@ -1,0 +1,15 @@
+export {
+  extractContactResult,
+  extractContactsListResponse,
+  getContactBadgeLabel,
+  getContactDisplayName,
+  getContactFormType,
+  getContactSubtitle,
+  mapBackendTypeToFrontendType,
+  mapContactDataToApiPayload,
+  mapContactToFormData,
+  mapFrontendTypeToBackendType,
+  normalizeContact,
+  normalizeContactFormData,
+  normalizeContactResult,
+} from "./normalize-contact"

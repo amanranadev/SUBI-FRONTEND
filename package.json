@@ -1,0 +1,40 @@
+{
+  "name": "subi",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.32.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev:web": "turbo run dev --filter=@subi/web",
+    "dev:mobile": "turbo run dev --filter=@subi/mobile",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "~5.9.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.2.1",
+      "react-dom": "19.2.1",
+      "react-test-renderer": "19.2.1",
+      "@subi/mobile>react": "19.1.0",
+      "@subi/mobile>react-dom": "19.1.0",
+      "@subi/mobile>react-test-renderer": "19.1.0",
+      "react-hook-form>react": "19.1.0",
+      "react-hook-form>react-dom": "19.1.0"
+    },
+    "onlyBuiltDependencies": [
+      "@firebase/util",
+      "@sentry/cli",
+      "esbuild",
+      "protobufjs",
+      "sharp"
+    ]
+  }
+}

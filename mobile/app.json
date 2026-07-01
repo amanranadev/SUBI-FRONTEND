@@ -1,0 +1,80 @@
+{
+  "cli": {
+    "appVersionSource": "remote"
+  },
+  "expo": {
+    "name": "OkSubi",
+    "slug": "oksubi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "oksubi",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app needs microphone access to record your voice messages.",
+        "NSSpeechRecognitionUsageDescription": "This app needs speech recognition access to transcribe your voice messages.",
+        "NSCalendarsUsageDescription": "This app needs access to your calendar to add and manage task events.",
+        "NSCalendarsFullAccessUsageDescription": "This app needs full access to your calendar to add and manage task events.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "buildNumber": "12",
+      "bundleIdentifier": "com.oksubi.mobile"
+    },
+    "android": {
+      "package": "com.oksubi.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "./assets/images/logo.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/logo.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin/app.plugin.js",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.1096282947126-ufsuvfkdm641ntjhc5rt4cbuk610ot0c"
+        }
+      ],
+      "expo-web-browser",
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "This app needs access to your calendar to add and manage task events."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4e7084e7-c1e2-43db-be73-26a1075b074a"
+      },
+      "router": {}
+    },
+    "owner": "oksubi"
+  }
+}
