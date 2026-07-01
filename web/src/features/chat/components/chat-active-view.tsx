@@ -59,6 +59,8 @@ export function ChatActiveView({
     dismissTemplatePreview,
     pendingCadetFills,
     retryCadetFill,
+    pendingCadetActions,
+    retryCadetAction,
   } = chatHook;
 
   const displayMessages = React.useMemo(() => {
@@ -113,6 +115,8 @@ export function ChatActiveView({
         onDismissRemoval={dismissRemoval}
         pendingCadetFills={pendingCadetFills}
         onRetryCadetFill={retryCadetFill}
+        pendingCadetActions={pendingCadetActions}
+        onRetryCadetAction={retryCadetAction}
         transactionId={transactionId}
       />
 

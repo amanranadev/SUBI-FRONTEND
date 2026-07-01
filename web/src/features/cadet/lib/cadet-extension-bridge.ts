@@ -110,23 +110,47 @@ export async function focusDotloopTab(): Promise<{ tabId: number; url: string } 
   }
 }
 
-export async function showCadetFillPopup(payload: CadetFillPopupPayload): Promise<void> {
-  // #region agent log
-  fetch('http://127.0.0.1:7282/ingest/f0f2430a-4db9-4ac2-b5cc-951cde15ed9e',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'4db5fc'},body:JSON.stringify({sessionId:'4db5fc',location:'cadet-extension-bridge.ts:showCadetFillPopup',message:'sending show popup',data:{payload},timestamp:Date.now(),runId:'popup-debug',hypothesisId:'H1'})}).catch(()=>{});
-  // #endregion
+export async function focusActionTab(
+  actionId: string,
+  options: { phrase?: string; platform?: string } = {},
+): Promise<{ tabId: number; url: string } | null> {
+  try {
+    const response = await sendExtensionMessage<CadetExtensionResponse>({
+      type: "FOCUS_ACTION_TAB",
+      actionId,
+      phrase: options.phrase,
+      options: {
+        platform: options.platform,
+      },
+    })
+    if (response.tabId && response.url) {
+      return { tabId: response.tabId, url: response.url }
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+export async function showCadetFillPopup(
+  payload: CadetFillPopupPayload,
+  tabId?: number,
+): Promise<void> {
   await sendExtensionMessage({
     type: "SHOW_SUBI_FILL_POPUP",
     payload,
+    ...(tabId ? { tabId } : {}),
   })
 }
 
-export async function updateCadetFillPopup(payload: CadetFillPopupPayload): Promise<void> {
-  // #region agent log
-  fetch('http://127.0.0.1:7282/ingest/f0f2430a-4db9-4ac2-b5cc-951cde15ed9e',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'4db5fc'},body:JSON.stringify({sessionId:'4db5fc',location:'cadet-extension-bridge.ts:updateCadetFillPopup',message:'sending update popup',data:{payload},timestamp:Date.now(),runId:'popup-debug',hypothesisId:'H1'})}).catch(()=>{});
-  // #endregion
+export async function updateCadetFillPopup(
+  payload: CadetFillPopupPayload,
+  tabId?: number,
+): Promise<void> {
   await sendExtensionMessage({
     type: "UPDATE_SUBI_FILL_POPUP",
     payload,
+    ...(tabId ? { tabId } : {}),
   })
 }
 
@@ -167,6 +191,65 @@ async function pollSubiFillStatus(
   }
 
   throw new Error("CADET fill timed out. Open a Dotloop form tab and try again.")
+}
+
+export type CadetActionRunOptions = {
+  phrase?: string
+  platform?: string
+  focusTab?: boolean
+}
+
+async function pollCadetActionStatus(
+  requestId: string,
+  maxWaitMs = 180_000,
+): Promise<{ message: string; report?: CadetFillReport }> {
+  const startedAt = Date.now()
+
+  while (Date.now() - startedAt < maxWaitMs) {
+    const response = await sendExtensionMessage<CadetExtensionResponse>({
+      type: "GET_CADET_ACTION_STATUS",
+      requestId,
+    })
+
+    if (response.status === "success") {
+      return {
+        message: response.message || "CADET action complete.",
+        report: response.report,
+      }
+    }
+
+    if (response.status === "error") {
+      throw new Error(response.error || "CADET action failed.")
+    }
+
+    await sleep(1000)
+  }
+
+  throw new Error("CADET action timed out. Open the target site tab and try again.")
+}
+
+export async function runCadetAction(
+  actionId: string,
+  options: CadetActionRunOptions = {},
+): Promise<{ message: string; report?: CadetFillReport }> {
+  const response = await sendExtensionMessage<CadetExtensionResponse>({
+    type: "RUN_CADET_ACTION",
+    actionId,
+    phrase: options.phrase,
+    platform: options.platform ?? "dotloop",
+    options: {
+      focusTab: options.focusTab ?? true,
+    },
+  })
+
+  if (response.requestId) {
+    return pollCadetActionStatus(response.requestId)
+  }
+
+  return {
+    message: response.message || "CADET action complete.",
+    report: response.report,
+  }
 }
 
 export async function fillTransaction(

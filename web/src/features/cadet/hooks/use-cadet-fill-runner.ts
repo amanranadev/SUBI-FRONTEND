@@ -180,9 +180,6 @@ export function useCadetFillRunner() {
         countdownSeconds: Math.ceil(PRE_FILL_DELAY_MS / 1000),
         tone: "countdown",
       }).catch(() => {})
-      // #region agent log
-      fetch('http://127.0.0.1:7282/ingest/f0f2430a-4db9-4ac2-b5cc-951cde15ed9e',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'4db5fc'},body:JSON.stringify({sessionId:'4db5fc',location:'use-cadet-fill-runner.ts:runFill',message:'requested popup after focus',data:{requestId:request.id,transactionId:request.transactionId,tabId:dotloopTab.tabId},timestamp:Date.now(),runId:'popup-debug',hypothesisId:'H2'})}).catch(()=>{});
-      // #endregion
 
       const installed = await pingCadet()
       if (!installed) {

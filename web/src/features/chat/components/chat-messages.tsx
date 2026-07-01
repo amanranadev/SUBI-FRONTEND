@@ -27,7 +27,8 @@ import {
   redactTechnicalIds,
 } from "../chat-message-sanitizer";
 import { CadetFillStatusCard } from "@/features/cadet/components/cadet-fill-status-card";
-import type { CadetFillRequest } from "@/features/cadet/types";
+import { CadetActionStatusCard } from "@/features/cadet/components/cadet-action-status-card";
+import type { CadetFillRequest, CadetActionRequest } from "@/features/cadet/types";
 
 interface ChatMessagesProps {
   messages: Message[];
@@ -69,6 +70,8 @@ interface ChatMessagesProps {
   onDismissRemoval?: (id: string) => void;
   pendingCadetFills?: CadetFillRequest[];
   onRetryCadetFill?: (requestId: string) => void;
+  pendingCadetActions?: CadetActionRequest[];
+  onRetryCadetAction?: (requestId: string) => void;
   transactionId?: string;
 }
 
@@ -103,6 +106,8 @@ export function ChatMessages({
   onDismissRemoval,
   pendingCadetFills = [],
   onRetryCadetFill,
+  pendingCadetActions = [],
+  onRetryCadetAction,
   transactionId,
 }: ChatMessagesProps) {
   const sentinelRef = React.useRef<HTMLDivElement>(null)
@@ -168,6 +173,24 @@ export function ChatMessages({
                   onRetry={
                     onRetryCadetFill
                       ? () => onRetryCadetFill(request.id)
+                      : undefined
+                  }
+                  compact
+                />
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {pendingCadetActions.length > 0 ? (
+          <div className="space-y-2 pb-2">
+            {pendingCadetActions.map((request) => (
+              <div key={request.id} className="py-1 px-1 message-in">
+                <CadetActionStatusCard
+                  request={request}
+                  onRetry={
+                    onRetryCadetAction
+                      ? () => onRetryCadetAction(request.id)
                       : undefined
                   }
                   compact

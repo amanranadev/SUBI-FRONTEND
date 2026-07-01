@@ -26,8 +26,11 @@ import { useChatHistory } from "./use-chat-history"
 import { useChatList } from "./use-chat-list"
 import { useChatFlows } from "./use-chat-flows"
 import { useCadetFillRunner } from "@/features/cadet/hooks/use-cadet-fill-runner"
+import { useCadetActionRunner } from "@/features/cadet/hooks/use-cadet-action-runner"
 import { isCadetPinpointPhrase } from "@/features/cadet/lib/parse-pinpoint-phrase"
 import { resolveCadetPhrase } from "@/features/cadet/api/cadet-resolve-service"
+import { resolveCadetActionPhrase } from "@/features/cadet/api/cadet-action-resolve-service"
+import { isCadetExtensionConfigured } from "@/features/cadet/lib/cadet-extension-bridge"
 
 type SendMessageInput =
   | string
@@ -111,12 +114,24 @@ export function useChat() {
     clearCompletedCadetFills,
   } = useCadetFillRunner()
 
+  const {
+    pendingCadetActions,
+    enqueueCadetAction,
+    retryCadetAction,
+    clearCadetActions,
+    clearCompletedCadetActions,
+  } = useCadetActionRunner()
+
   const enqueueCadetFillRef = React.useRef(enqueueCadetFill)
+  const enqueueCadetActionRef = React.useRef(enqueueCadetAction)
   const clearCompletedCadetFillsRef = React.useRef(clearCompletedCadetFills)
+  const clearCompletedCadetActionsRef = React.useRef(clearCompletedCadetActions)
   React.useEffect(() => {
     enqueueCadetFillRef.current = enqueueCadetFill
+    enqueueCadetActionRef.current = enqueueCadetAction
     clearCompletedCadetFillsRef.current = clearCompletedCadetFills
-  }, [enqueueCadetFill, clearCompletedCadetFills])
+    clearCompletedCadetActionsRef.current = clearCompletedCadetActions
+  }, [enqueueCadetFill, enqueueCadetAction, clearCompletedCadetFills, clearCompletedCadetActions])
 
   // Define sendMessage before flows
   const sendMessage = React.useCallback(
@@ -155,6 +170,26 @@ export function useChat() {
           .catch(() => {})
       } else {
         clearCompletedCadetFillsRef.current()
+        clearCompletedCadetActionsRef.current()
+        if (isCadetExtensionConfigured()) {
+          void resolveCadetActionPhrase(messageText)
+            .then((resolved) => {
+              if (!resolved) return
+              enqueueCadetActionRef.current(
+                {
+                  type: "cadet_action_requested",
+                  chat_id: chatId,
+                  action_id: resolved.action_id,
+                  action_name: resolved.name,
+                  trigger_phrase: resolved.trigger_phrase,
+                  platform: resolved.platform,
+                  timestamp: new Date().toISOString(),
+                },
+                messageText,
+              )
+            })
+            .catch(() => {})
+        }
       }
 
       responseWaitRef.current = {
@@ -333,6 +368,7 @@ export function useChat() {
     setStreamingText(null)
     flows.resetFlows()
     clearCadetFills()
+    clearCadetActions()
     setInput("")
 
     try {
@@ -349,7 +385,7 @@ export function useChat() {
     } finally {
       setIsInitializing(false)
     }
-  }, [history, flows, toast])
+  }, [history, flows, toast, clearCadetFills, clearCadetActions])
 
   const createNewChat = React.useCallback(async (params: CreateChatParams = {}) => {
     setIsInitializing(true)
@@ -357,6 +393,7 @@ export function useChat() {
     setStreamingText(null)
     flows.resetFlows()
     clearCadetFills()
+    clearCadetActions()
     setInput("")
 
     try {
@@ -384,7 +421,7 @@ export function useChat() {
     } finally {
       setIsInitializing(false)
     }
-  }, [history, flows, list, toast, clearCadetFills])
+  }, [history, flows, list, toast, clearCadetFills, clearCadetActions])
 
   const clearActiveChat = React.useCallback(() => {
     setChatId(null)
@@ -393,10 +430,11 @@ export function useChat() {
     setIsLoading(false)
     flows.resetFlows()
     clearCadetFills()
+    clearCadetActions()
     setContextUploadId(null)
     setContextTransactionId(null)
     setInput("")
-  }, [history, flows, clearCadetFills])
+  }, [history, flows, clearCadetFills, clearCadetActions])
 
   const loadOlderMessages = React.useCallback(() => {
     return history.loadOlderMessages(chatId)
@@ -442,6 +480,8 @@ export function useChat() {
     ...flows,
     pendingCadetFills,
     retryCadetFill,
+    pendingCadetActions,
+    retryCadetAction,
 
     // Overridden/Orchestrated Methods
     openChat,
